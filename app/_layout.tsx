@@ -8,7 +8,7 @@ export default function RootLayout() {
 
       />  
       <Stack.Screen
-         name="movies/[id].tsx"
+         name="movies/[id]"
          options={{headerShown: false}}
       />
   </Stack>;
