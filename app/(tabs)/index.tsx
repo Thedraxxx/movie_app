@@ -1,10 +1,26 @@
 
-import { Text, View } from "react-native";
-
+import SearchBar from "@/components/searchBar";
+import { icons } from "@/constants/icons";
+import { images } from "@/constants/images";
+import { Image, ScrollView, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 export default function Index() {
   return (
-    <View className="flex-1 items-center justify-center">
-      <Text className="text-lg font-bold text-accent">hello world</Text>
-    </View>
+    <SafeAreaView className="flex-1 bg-primary">
+         <Image source={images.bg} className="absolute z-0 w-full" />
+
+         <ScrollView className="flex-1 px-5"
+          showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 15, minHeight: '100%' }} // scroll garna hepp garxa
+         >
+              <Image source={icons.logo} className="w-12 mx-auto mt-10 mb-2"/>
+                
+                <View className="flex-1">
+                      <SearchBar/>
+                </View>
+             
+
+            
+         </ScrollView>
+    </SafeAreaView>
   );
 }
