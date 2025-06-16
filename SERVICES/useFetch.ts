@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-const useFetch = <T>(fetchFunction: () => Promise<T>, autoFetch = true) => {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+const useFetch = <T>(fetchFunction: () => Promise<T>, autoFetch = true) => { //ts ko generic type ho, fetchFunction le promise return garxa ani autoFetch true xa vane useEffect ma call garxa
+  // useFetch custom hook to handle data fetching, loading state, and error handling
+  const [data, setData] = useState<T | null>(null); //api bata aana data lai store garna useState ma T type ko data rakhxa, initial value null hunxa
+  const [loading, setLoading] = useState(false); //while fetching data, state true hunxa nava false
+  const [error, setError] = useState<Error | null>(null); // fetch garda error aayo vana yesma store hunca
 
   const fetchData = async () => {
     try {
@@ -29,7 +30,7 @@ const useFetch = <T>(fetchFunction: () => Promise<T>, autoFetch = true) => {
     setLoading(false);
   };
 
-  useEffect(() => {
+  useEffect(() => { // useEffect le component mount(first time show garda) hune bela ma fetchData call garxa
     if (autoFetch) {
       fetchData();
     }
