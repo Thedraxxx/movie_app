@@ -10,40 +10,39 @@ import useFetch from "@/SERVICES/useFetch";
 import MovieDisplayCard from "@/components/MovieCard";
 import SearchBar from "@/components/searchBar";
 
-// Simulated Appwrite function (temporarily removed real implementation)
-const updateSearchCount = async (query: string, movie: Movie) => {
+const updateSearchCount = async (query: string, movie: Movie) => {   //appwrite function to simulate updating search count
   console.log(`Simulating updateSearchCount for "${query}" with movie: ${movie.title}`);
 };
 
 const Search = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");  //srote user input for search query
 
   const {
-    data: movies = [],
+    data: movies = [],  //jaba loadmovies call hunxa ,movies ma data basxa
     loading,
     error,
-    refetch: loadMovies,
+    refetch: loadMovies, //function to fetch movies
     reset,
-  } = useFetch(() => fetchMovies({ query: searchQuery }), false);
+  } = useFetch(() => fetchMovies({ query: searchQuery }), false); //useFetch vanako custom hook ho, fetchMovies function lai call garxa ani searchQuery ko value pass garxa, autoFetch false xa bhani mount huna bela ma call hudaina, manual call garna parcha
 
   const handleSearch = (text: string) => {
-    setSearchQuery(text);
+    setSearchQuery(text);// user le search bar ma type gareko text lai set garxa
   };
 
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
-      if (searchQuery.trim()) {
-        await loadMovies();
-
+      if (searchQuery.trim()) { //searchQuery ma text xa vane
+        await loadMovies();  // loadMovies function call garxa, ani fetchMovies function lai call garxa
+  
         if (movies?.length! > 0 && movies?.[0]) {
-          await updateSearchCount(searchQuery, movies[0]);
+          await updateSearchCount(searchQuery, movies[0]);//appwrite function call garxa to simulate updating search count
         }
       } else {
-        reset();
+        reset();//searchQuery empty xa vane reset function call garxa, jasko karan data, loading ani error lai reset garna
       }
-    }, 500);
+    }, 500);//debounce effect, 0.5s wait garxa before calling loadMovies
 
-    return () => clearTimeout(timeoutId);
+    return () => clearTimeout(timeoutId);// yo function le timeout clear garxa, jasko karan debounce effect ma problem na hos
   }, [searchQuery]);
 
   return (

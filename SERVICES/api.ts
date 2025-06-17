@@ -52,3 +52,4 @@ export const fetchMovieDetails = async ( // id pathauxa ra movie ko details chi 
     throw error;
   }
 };
+
